@@ -33,6 +33,7 @@ const char* profileGroupName(uint8_t g) {
     switch (g) {
         case PG_MESH_EU: return "MESH 869";
         case PG_MESH_US: return "MESH 915";
+        case PG_MESH_BR: return "MESH 902";
         case PG_LORAWAN: return "LORAWAN";
         case PG_AIR:     return "AIR";
         case PG_HAM_433: return "433 / HAM";

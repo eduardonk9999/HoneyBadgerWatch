@@ -54,8 +54,14 @@ assinatura.
 ## LoRa — faixa BR (config, não é OUI)
 
 Não é assinatura: é frequência. Meshtastic no Brasil usa a região **BR_902**
-(902–907,5 e 915–928 MHz, ISM liberada pela ANATEL). O SquachWatch escolhe
-915/868 MHz pelo fuso; precisamos de um **perfil BR_902** explícito.
+(canais em 902–907,5 MHz; a ISM da ANATEL vai até 928). O SquachWatch escolhe
+915/868 MHz pelo fuso.
+
+✅ **Implementado** (`REGION_BR` em `lora_profiles.cpp`): tabela `PROFILES_BR`
+com os presets Meshtastic calculados sobre 902–907,5 MHz pela própria regra de
+slot da firmware (LongFast = **903.875 MHz**, conferido contra o âncora US
+906.875). Fuso "BRAZIL" → BR no AUTO; `LORA REGION BR` força. Falta (follow-up):
+MeshCore BR e LoRaWAN AU915 (sem frequência central BR verificada ainda).
 
 ---
 

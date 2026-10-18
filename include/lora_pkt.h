@@ -60,6 +60,7 @@ enum ProfileGroup : uint8_t {
     PG_HAM_433,       // APRS, MeshCom, the 433 mesh presets
     PG_OTHER,
     PG_MESH_US,       // Meshtastic and MeshCore, 902-928 MHz
+    PG_MESH_BR,       // Meshtastic and MeshCore, 902-907.5 MHz (Brazil, BR_902)
     PG_COUNT
 };
 const char* profileGroupName(uint8_t g);

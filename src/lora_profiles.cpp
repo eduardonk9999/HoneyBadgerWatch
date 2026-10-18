@@ -107,17 +107,39 @@ static const Profile PROFILES_US[] = {
     { "MT 70cm Narrow", 433650000,  625,  8, 6, 0x2B, 16, PF_CRC|PF_HAM|PF_433, 0, Proto::MESHTASTIC, PG_HAM_433 },
 };
 
+// Brazil: the BR_902 band plan, 902.0-907.5 MHz. Meshtastic's presets sit
+// where its own slot rule puts each name over this narrower range -- computed
+// with meshtasticSlotHz() below, the same rule the US table was checked
+// against, so LongFast lands on 903.875, the Brazilian community's well-known
+// primary. MeshCore and LoRaWAN AU915 are not here yet (no verified BR centre
+// frequency to pin them to); the 433 rows are the amateur allocations, as in
+// the other tables.
+static const Profile PROFILES_BR[] = {
+    { "MT LongFast",    903875000, 2500, 11, 5, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+    { "MT MediumFast",  906625000, 2500,  9, 5, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+    { "MT MediumSlow",  907375000, 2500, 10, 5, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+    { "MT ShortFast",   904375000, 2500,  7, 5, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+    { "MT ShortSlow",   905125000, 2500,  8, 5, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+    { "MT LongSlow",    903312500, 1250, 12, 8, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+    { "MT LongMod",     906687500, 1250, 11, 8, 0x2B, 16, PF_CRC,          0, Proto::MESHTASTIC, PG_MESH_BR },
+
+    // ---- 433 MHz: the amateur allocations, as in the EU and US tables -------
+    { "APRS 433.775",   433775000, 1250, 12, 5, 0x12,  8, PF_CRC|PF_HAM|PF_433, 0, Proto::APRS,       PG_HAM_433 },
+    { "MT 70cm Narrow", 433650000,  625,  8, 6, 0x2B, 16, PF_CRC|PF_HAM|PF_433, 0, Proto::MESHTASTIC, PG_HAM_433 },
+};
+
 static const Profile* s_tab = PROFILES_EU;
 static uint8_t        s_n   = (uint8_t)(sizeof(PROFILES_EU) / sizeof(PROFILES_EU[0]));
 static uint8_t        s_region = REGION_EU;
 
 void setRegion(uint8_t r) {
-    s_region = (r == REGION_US) ? REGION_US : REGION_EU;
-    if (s_region == REGION_US) { s_tab = PROFILES_US; s_n = (uint8_t)(sizeof(PROFILES_US) / sizeof(PROFILES_US[0])); }
-    else                       { s_tab = PROFILES_EU; s_n = (uint8_t)(sizeof(PROFILES_EU) / sizeof(PROFILES_EU[0])); }
+    s_region = (r == REGION_US || r == REGION_BR) ? r : REGION_EU;
+    if      (s_region == REGION_US) { s_tab = PROFILES_US; s_n = (uint8_t)(sizeof(PROFILES_US) / sizeof(PROFILES_US[0])); }
+    else if (s_region == REGION_BR) { s_tab = PROFILES_BR; s_n = (uint8_t)(sizeof(PROFILES_BR) / sizeof(PROFILES_BR[0])); }
+    else                            { s_tab = PROFILES_EU; s_n = (uint8_t)(sizeof(PROFILES_EU) / sizeof(PROFILES_EU[0])); }
 }
 uint8_t     region()     { return s_region; }
-const char* regionName() { return s_region == REGION_US ? "US 915" : "EU 868"; }
+const char* regionName() { return s_region == REGION_US ? "US 915" : s_region == REGION_BR ? "BR 902" : "EU 868"; }
 
 const Profile* profiles()     { return s_tab; }
 uint8_t        profileCount() { return s_n; }
