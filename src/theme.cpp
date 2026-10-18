@@ -1,5 +1,6 @@
 // SquachWatch-CYD — theme implementation
 #include "theme.h"
+#include "lang.h"
 #include "draw_band.h"
 #include "frame_prof.h"
 #include "caustic_tile.h"
@@ -857,12 +858,12 @@ void drawButtonBar(TFT_eSPI& t, ButtonId highlighted, ButtonBarMode mode) {
     if (mode == ButtonBarMode::SCAN_PICKER) {
         drawButton(t, g.x[0], g.y, g.w[0], g.h, "[ BLE ]",  highlighted == ButtonId::SCAN);
         drawButton(t, g.x[1], g.y, g.w[1], g.h, "[ WIFI ]", highlighted == ButtonId::LOG);
-        drawButton(t, g.x[2], g.y, g.w[2], g.h, "[ BACK ]", highlighted == ButtonId::CLR);
+        drawButton(t, g.x[2], g.y, g.w[2], g.h, Lang::tr(Lang::BTN_BACK), highlighted == ButtonId::CLR);
         return;
     }
     drawButton(t, g.x[0], g.y, g.w[0], g.h, "[ SCAN ]", highlighted == ButtonId::SCAN);
     drawButton(t, g.x[1], g.y, g.w[1], g.h, "[ LOG ]",  highlighted == ButtonId::LOG);
-    drawButton(t, g.x[2], g.y, g.w[2], g.h, mode == ButtonBarMode::LOG ? "[ CLR ]" : "[ DESK ]",
+    drawButton(t, g.x[2], g.y, g.w[2], g.h, mode == ButtonBarMode::LOG ? Lang::tr(Lang::BTN_CLR) : Lang::tr(Lang::BTN_DESK),
                highlighted == ButtonId::CLR);
 }
 

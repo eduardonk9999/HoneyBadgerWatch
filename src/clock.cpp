@@ -9,6 +9,7 @@
 #endif
 #include "flood_bench.h" // FLOOD N, for the bench (a no-op outside FLOOD_BENCH builds)
 #include "settings.h"
+#include "lang.h"
 #include "crowd_bench.h"
 #include "blackbox.h"    // BLACKBOX dumps it
 #include "pet.h"         // YETI DISCO / YETI FLOSS
@@ -706,6 +707,18 @@ void pollSerial() {
         }
 #endif
 #endif
+        if (strncasecmp(line, "LANG", 4) == 0) {
+            // LANG EN or LANG PT: the UI language. Technical terms stay in
+            // English either way (see lang.h). Takes effect immediately.
+            const char* arg = line + 4;
+            while (*arg == ' ') arg++;
+            if (strcasecmp(arg, "EN") == 0) Settings::setLanguage(Lang::EN);
+            else if (strcasecmp(arg, "PT") == 0 || strcasecmp(arg, "PT-BR") == 0 ||
+                     strcasecmp(arg, "PTBR") == 0) Settings::setLanguage(Lang::PT_BR);
+            else if (*arg) { Serial.println("[ui] LANG EN or LANG PT"); continue; }
+            Serial.printf("[ui] language: %s\n", Settings::languageName());
+            continue;
+        }
         if (strncasecmp(line, "ZONE ", 5) == 0) {
             // ZONE US EASTERN, or ZONE 4: the flasher sends the name it
             // worked out from the browser's own zone.

@@ -82,6 +82,7 @@ UI_SRCS  := $(SRC)/theme.cpp \
             $(SRC)/ui_meshphrase.cpp \
             $(SRC)/ui_meshcompose.cpp \
             $(SRC)/settings.cpp \
+            $(SRC)/lang.cpp \
             $(SRC)/signatures.cpp \
             $(SRC)/remote_id.cpp \
             $(SRC)/clock.cpp \

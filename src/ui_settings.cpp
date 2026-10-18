@@ -10,6 +10,7 @@
 #include "ota_core.h"
 #include "ota_wifi.h"
 #include "theme.h"
+#include "lang.h"
 #include "privacy.h"
 #include "settings.h"
 #include "security.h"
@@ -356,7 +357,7 @@ static RowGroupId groupFor(SettingsRow r) {
 
 static const char* groupName(RowGroupId g) {
     switch (g) {
-        case RowGroupId::APPEARANCE: return "APPEARANCE";
+        case RowGroupId::APPEARANCE: return Lang::tr(Lang::GRP_APPEARANCE);
         case RowGroupId::BEHAVIOR:   return "BEHAVIOR";
         case RowGroupId::SQUACHY:    return "SQUACHY";
         case RowGroupId::DESK:       return "DESK";
@@ -367,7 +368,7 @@ static const char* groupName(RowGroupId g) {
 #else
         case RowGroupId::WATCH:      return "WATCH";
 #endif
-        default:                     return "SYSTEM";
+        default:                     return Lang::tr(Lang::GRP_SYSTEM);
     }
 }
 

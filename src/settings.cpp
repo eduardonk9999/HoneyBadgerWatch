@@ -3,6 +3,7 @@
 #include <string.h>
 #include "clock.h"
 #include "theme.h"
+#include "lang.h"
 #include <Preferences.h>
 
 namespace Settings {
@@ -188,6 +189,7 @@ static uint8_t  s_loraMode     = 2;
 static uint8_t  s_loraFocus    = 0;
 static uint8_t  s_loraRegion   = 0;   // AUTO
 static uint8_t  s_loraListen   = 3;   // BOTH
+static uint8_t  s_language     = 0;   // Lang::EN
 static uint8_t  s_loraTx       = 0;   // LORA TX: 0 off, else dBm
 // The online lookups, all four OFF. See Settings::loraLookups() for why the
 // default is the opposite of the update check's.
@@ -404,6 +406,10 @@ void cycleLoraTx() {
 const char* loraTxName() { return s_loraTx == 0 ? "OFF" : s_loraTx == 10 ? "10 dBm" : "20 dBm"; }
 uint8_t loraRegion() { return s_loraRegion; }
 void setLoraRegion(uint8_t r) { s_loraRegion = r > 3 ? 0 : r; s_prefs.putUChar("loraRgn", s_loraRegion); }
+uint8_t language() { return s_language; }
+const char* languageName() { return Lang::name(s_language); }
+void setLanguage(uint8_t l) { s_language = l < Lang::COUNT ? l : 0; s_prefs.putUChar("lang", s_language); Lang::set(s_language); }
+void cycleLanguage() { setLanguage((uint8_t)((s_language + 1) % Lang::COUNT)); }
 uint8_t loraFocus() { return s_loraFocus; }
 void setLoraFocus(uint8_t ix) { s_loraFocus = ix; s_prefs.putUChar("loraFocus", ix); }
 // Keys: 8, 9, 9 and 9 characters, inside NVS's limit of 15, and none of them is
@@ -604,6 +610,9 @@ void load() {
     s_loraTx = s_prefs.getUChar("loraTx", 0);
     if (s_loraTx != 10 && s_loraTx != 20) s_loraTx = 0;
     if (s_loraRegion > 3) s_loraRegion = 0;
+    s_language     = s_prefs.getUChar("lang", 0);
+    if (s_language >= Lang::COUNT) s_language = 0;
+    Lang::set(s_language);
     // False, every time, unless somebody has said otherwise on this board.
     s_loraLookups  = s_prefs.getBool("loraLkup", false);
     s_loraLkCall   = s_prefs.getBool("loraLkCal", false);

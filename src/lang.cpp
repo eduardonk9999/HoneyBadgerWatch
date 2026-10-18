@@ -1,0 +1,27 @@
+#include "lang.h"
+
+namespace Lang {
+
+static uint8_t s_lang = EN;
+
+// [StringId] = { EN, PT_BR }. No accents in the PT column (font-glyph safety,
+// see lang.h). UI chrome only -- technical terms never live here.
+static const char* const T[STR_COUNT][COUNT] = {
+    /* BTN_DESK       */ { "[ DESK ]",   "[ MESA ]"   },
+    /* BTN_CLR        */ { "[ CLR ]",    "[ LIMPAR ]" },
+    /* BTN_BACK       */ { "[ BACK ]",   "[ VOLTAR ]" },
+    /* GRP_APPEARANCE */ { "APPEARANCE", "APARENCIA"  },
+    /* GRP_SYSTEM     */ { "SYSTEM",     "SISTEMA"    },
+    /* ROW_LANGUAGE   */ { "LANGUAGE",   "IDIOMA"     },
+};
+
+void set(uint8_t l)       { s_lang = (l < COUNT) ? l : EN; }
+uint8_t current()         { return s_lang; }
+const char* name(uint8_t l) { return (l == PT_BR) ? "PT-BR" : "EN"; }
+
+const char* trIn(StringId id, uint8_t l) {
+    return T[(id < STR_COUNT) ? id : 0][(l < COUNT) ? l : EN];
+}
+const char* tr(StringId id) { return trIn(id, s_lang); }
+
+}

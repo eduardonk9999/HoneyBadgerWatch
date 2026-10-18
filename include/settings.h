@@ -340,6 +340,10 @@ namespace Settings {
     const char* loraTxName();
     uint8_t     loraRegion();
     void        setLoraRegion(uint8_t r);
+    uint8_t     language();            // Lang::EN / Lang::PT_BR
+    const char* languageName();        // "EN" / "PT-BR"
+    void        setLanguage(uint8_t l);
+    void        cycleLanguage();
     uint8_t     loraFocus();
     void        setLoraFocus(uint8_t ix);
 
