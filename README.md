@@ -3,7 +3,7 @@
 > Surveillance-device detector for the ESP32 "Cheap Yellow Display" — built for Brazil, fearless like the honey badger.
 
 <p align="center">
-  <img src="docs/texugo.png" width="200" alt="Texugo, the honey badger mascot, in pixel art">
+  <img src="docs/mascote-matrix.gif" width="480" alt="Texugo, the honey badger mascot, materializing out of matrix rain and switching to his mean mode">
 </p>
 
 <p align="center">

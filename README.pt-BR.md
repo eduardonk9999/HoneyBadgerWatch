@@ -3,7 +3,7 @@
 > Detector de dispositivos de vigilância para o ESP32 "Cheap Yellow Display" — feito pro Brasil, destemido que nem o texugo.
 
 <p align="center">
-  <img src="docs/texugo.png" width="200" alt="Texugo, o mascote texugo-do-mel, em pixel art">
+  <img src="docs/mascote-matrix.gif" width="480" alt="Texugo, o mascote texugo-do-mel, surgindo da chuva de matrix e virando o modo mal">
 </p>
 
 <p align="center">
