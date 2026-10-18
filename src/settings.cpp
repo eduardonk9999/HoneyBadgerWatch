@@ -9,7 +9,7 @@
 namespace Settings {
 
 static Preferences s_prefs;
-static uint8_t     s_palette    = 0;
+static uint8_t     s_palette    = 6;   // M4TR1X: HoneyBadgerWatch's default look
 static Background  s_background = Background::DIGITAL;
 static uint16_t    s_mascotPace   = 120;   // PACE: ms between the mascot's steps
 static uint8_t     s_mascotTempo  = 70;    // TEMPO: percent on his durations
@@ -471,8 +471,8 @@ void setHuntProgress(Hunt h, uint8_t v) {
 void load() {
     s_prefs.begin("settings", false);
     s_hunt       = s_prefs.getUInt("hunt", 0);
-    s_palette    = (uint8_t)s_prefs.getUChar("pal", 0);
-    if (s_palette >= Theme::PALETTE_COUNT) s_palette = 0;
+    s_palette    = (uint8_t)s_prefs.getUChar("pal", 6);   // 6 = M4TR1X, our default
+    if (s_palette >= Theme::PALETTE_COUNT) s_palette = 6;
     // SYNTHWAVE is the default a fresh device comes up on -- it is the
     // scene the boot splash already uses, so first power-on flows from
     // the splash into the same sunset instead of switching to something

@@ -80,7 +80,7 @@ namespace Theme {
                  vaporPink, vaporPurple, vaporBlue, vaporYellow,
                  green, amber, red;
     };
-    static const uint8_t PALETTE_COUNT = 6;
+    static const uint8_t PALETTE_COUNT = 7;
     extern const Palette kPalettes[PALETTE_COUNT];
 
     // Overwrites BG/PURPLE/etc. from kPalettes[idx] (clamped). Call
