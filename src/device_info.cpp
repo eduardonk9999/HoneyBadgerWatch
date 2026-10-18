@@ -124,6 +124,26 @@ const Device kDevices[] = {
       "Snap Spectacles: camera glasses from Snapchat's maker that record clips from the wearer's point of view." },
     { DetectionType::META, "VUZIX", "Vuzix", nullptr,
       "Vuzix smart glasses, sold mostly to warehouses, hospitals and police. Many models have a camera." },
+
+    // ---- Brazilian devices (HoneyBadgerWatch) -------------------------------
+    { DetectionType::ALPR, "PUMATRONIX", "ALPR-Puma", nullptr,
+      "Pumatronix (Curitiba) makes the ITSCAM plate cameras on Brazilian roads and gates. Its block means an ALPR that reads passing plates is nearby." },
+    { DetectionType::CAMERA, "INTELBRAS", "Intelbras", nullptr,
+      "Intelbras is Brazil's biggest maker of cameras and DVRs -- but also routers, ONTs and intercoms. So this is Intelbras gear, not proof of a camera." },
+    { DetectionType::CAMERA, "EZVIZ", "Ezviz", nullptr,
+      "Ezviz is Hikvision's consumer camera brand: the little WiFi cams sold for homes and shops across Brazil. A camera is almost certainly nearby." },
+    { DetectionType::CAMERA, "DAHUA", "Dahua", nullptr,
+      "Dahua is one of the two giant surveillance makers, with Hikvision. Its cameras and recorders are everywhere in Brazil, city monitoring included." },
+    { DetectionType::CAMERA, "CONTROL ID", "ControlID", nullptr,
+      "Control iD (Brazil) makes face-recognition access control -- the iDFace turnstiles in offices, gyms and condos. A camera that reads faces is near." },
+    { DetectionType::CAMERA, "DIGICON", "Digicon", nullptr,
+      "Grupo Digicon (Brazil) makes toll, turnstile and access gear. The block covers many products, so read it as access hardware nearby, not a sure camera." },
+    { DetectionType::CAMERA, "VERINT", "Verint", nullptr,
+      "Verint, and its Loronix video arm, makes surveillance and analytics kit. The block also covers telecom gear, so it is a lead toward a camera, not certain." },
+    { DetectionType::CAMERA, "POSITIVO", "Positivo", nullptr,
+      "Positivo is a Brazilian electronics maker: mostly phones, tablets and PCs, with some smart-home cams. Usually not a camera, so graded low." },
+    { DetectionType::CAMERA, "MULTILASER", "Multilaser", nullptr,
+      "Multilaser is a Brazilian consumer brand, from chargers to smart cams. Rarely a camera, so this is a low-confidence hint, not a match." },
 };
 const uint8_t kDeviceCount = sizeof(kDevices) / sizeof(kDevices[0]);
 

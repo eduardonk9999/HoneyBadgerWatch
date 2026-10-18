@@ -112,6 +112,16 @@ inline const SimDetectionProfile kSimProfiles[] = {
     { DetectionType::HACKER,      {0x06, 0x50, 0x49}, "Pineapple",   "",               -60, true,  "WiFi Pineapple" },
     { DetectionType::HACKER,      {0x06, 0xDE, 0xA7}, "Deauther",    "",               -57, true,  "ESP deauther" },
     { DetectionType::HACKER,      {0x02, 0xC0, 0xCA}, "Hak5-LA",     "",               -63, true,  "Hak5 address" },
+    // Brazilian devices (HoneyBadgerWatch)
+    { DetectionType::ALPR,        {0xF8, 0xD4, 0x62}, "ALPR-Puma",   "",               -72, true,  "Pumatronix plate reader" },
+    { DetectionType::CAMERA,      {0x58, 0x10, 0x8C}, "Intelbras",   "",               -66, true,  "Intelbras camera" },
+    { DetectionType::CAMERA,      {0x64, 0xF2, 0xFB}, "Ezviz",       "",               -64, true,  "Ezviz camera" },
+    { DetectionType::CAMERA,      {0x74, 0xC9, 0x29}, "Dahua",       "",               -65, true,  "Dahua camera" },
+    { DetectionType::CAMERA,      {0xFC, 0x52, 0xCE}, "ControlID",   "",               -68, true,  "Control iD face reader" },
+    { DetectionType::CAMERA,      {0x4C, 0x8B, 0x55}, "Digicon",     "",               -70, true,  "Digicon access control" },
+    { DetectionType::CAMERA,      {0x00, 0x0D, 0x40}, "Verint",      "",               -71, true,  "Verint surveillance" },
+    { DetectionType::CAMERA,      {0x44, 0x0B, 0xAB}, "Positivo",    "",               -69, true,  "Positivo device" },
+    { DetectionType::CAMERA,      {0x74, 0x58, 0x89}, "Multilaser",  "",               -70, true,  "Multilaser device" },
 };
 inline const size_t kSimProfileCount = sizeof(kSimProfiles) / sizeof(kSimProfiles[0]);
 
