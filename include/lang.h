@@ -27,6 +27,16 @@ enum StringId : uint16_t {
     GRP_APPEARANCE,
     GRP_SYSTEM,
     ROW_LANGUAGE,
+    GRP_BEHAVIOR,
+    GRP_DESK,
+    GRP_WATCH,
+    GRP_FONTS,
+    ROW_BORING,
+    ROW_ALERT_FILTER,
+    ROW_AUTO_SNOOZE,
+    ROW_TYPE_FILTER,
+    ROW_IGNORED,
+    ROW_SOUND,
     STR_COUNT
 };
 

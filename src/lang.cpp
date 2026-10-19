@@ -13,6 +13,16 @@ static const char* const T[STR_COUNT][COUNT] = {
     /* GRP_APPEARANCE */ { "APPEARANCE", "APARENCIA"  },
     /* GRP_SYSTEM     */ { "SYSTEM",     "SISTEMA"    },
     /* ROW_LANGUAGE   */ { "LANGUAGE",   "IDIOMA"     },
+    /* GRP_BEHAVIOR   */ { "BEHAVIOR",     "CONDUTA"       },
+    /* GRP_DESK       */ { "DESK",         "MESA"          },
+    /* GRP_WATCH      */ { "WATCH",        "RELOGIO"       },
+    /* GRP_FONTS      */ { "TEXT SIZE",    "TEXTO"         },
+    /* ROW_BORING     */ { "BORING MODE",  "MODO SIMPLES"  },
+    /* ROW_ALERT_FILTER*/{ "ALERT FILTER", "FILTRO ALERTA" },
+    /* ROW_AUTO_SNOOZE*/ { "AUTO SNOOZE",  "AUTO SONECA"   },
+    /* ROW_TYPE_FILTER*/ { "TYPE FILTER",  "FILTRO TIPO"   },
+    /* ROW_IGNORED    */ { "IGNORED",      "IGNORADOS"     },
+    /* ROW_SOUND      */ { "SOUND",        "SOM"           },
 };
 
 void set(uint8_t l)       { s_lang = (l < COUNT) ? l : EN; }

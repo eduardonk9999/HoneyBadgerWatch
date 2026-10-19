@@ -359,15 +359,15 @@ static RowGroupId groupFor(SettingsRow r) {
 static const char* groupName(RowGroupId g) {
     switch (g) {
         case RowGroupId::APPEARANCE: return Lang::tr(Lang::GRP_APPEARANCE);
-        case RowGroupId::BEHAVIOR:   return "BEHAVIOR";
-        case RowGroupId::SQUACHY:    return "SQUACHY";
-        case RowGroupId::DESK:       return "DESK";
+        case RowGroupId::BEHAVIOR:   return Lang::tr(Lang::GRP_BEHAVIOR);
+        case RowGroupId::SQUACHY:    return "TEXUGO";
+        case RowGroupId::DESK:       return Lang::tr(Lang::GRP_DESK);
         case RowGroupId::SQUAD:      return "SQUAD";
-        case RowGroupId::FONTS:      return "TEXT SIZE";
+        case RowGroupId::FONTS:      return Lang::tr(Lang::GRP_FONTS);
 #if defined(TDECK_PLUS)
         case RowGroupId::WATCH:      return "LORA";    // the T-Deck has the watch's LoRa rows and nothing else of the watch's
 #else
-        case RowGroupId::WATCH:      return "WATCH";
+        case RowGroupId::WATCH:      return Lang::tr(Lang::GRP_WATCH);
 #endif
         default:                     return Lang::tr(Lang::GRP_SYSTEM);
     }
@@ -1208,16 +1208,16 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             label = "ROTATION LOCK"; value = Settings::rotationLocked() ? "ON" : "OFF";
             break;
         case SettingsRow::BORING_MODE:
-            label = "BORING MODE"; value = Settings::boringMode() ? "ON" : "OFF";
+            label = Lang::tr(Lang::ROW_BORING); value = Settings::boringMode() ? "ON" : "OFF";
             break;
         case SettingsRow::CONFIDENCE:
-            label = "ALERT FILTER"; value = Settings::minConfidenceLabel();
+            label = Lang::tr(Lang::ROW_ALERT_FILTER); value = Settings::minConfidenceLabel();
             break;
         case SettingsRow::LANGUAGE:
             label = Lang::tr(Lang::ROW_LANGUAGE); value = Settings::languageName();
             break;
         case SettingsRow::AUTO_QUIET:
-            label = "AUTO SNOOZE"; value = Settings::autoQuietLabel();
+            label = Lang::tr(Lang::ROW_AUTO_SNOOZE); value = Settings::autoQuietLabel();
             break;
 #if defined(CROWPANEL7)
         case SettingsRow::BUZZER:
@@ -1232,7 +1232,7 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             // ALERTS is a new device, a watch-list hit and a low battery; ALL
             // adds the squad, the throws, the pets and the lamp's cable. The
             // rules are in sound.h.
-            label = "SOUND"; value = Settings::soundModeName();
+            label = Lang::tr(Lang::ROW_SOUND); value = Settings::soundModeName();
             break;
 #endif
 #if SQW_WIFI_5G
@@ -1249,7 +1249,7 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             // confirmed with the emulator before ever touching
             // hardware. Shortened here only; the destination screen
             // keeps the full name in its title bar.
-            label = "TYPE FILTER";
+            label = Lang::tr(Lang::ROW_TYPE_FILTER);
             snprintf(valBuf, valBufN, "%u/%u", (unsigned)Settings::enabledTypeCount(),
                      (unsigned)DetectionType::COUNT - 1);
             value = valBuf;
@@ -1259,7 +1259,7 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             // itself is shortened for the same reason TYPE FILTER above is
             // -- the full name collides with its own value on the 240px
             // portrait rotation at this row's size-2 text.
-            label = "IGNORED";
+            label = Lang::tr(Lang::ROW_IGNORED);
             snprintf(valBuf, valBufN, "%u", (unsigned)IgnoreList::count());
             value = valBuf;
             break;
