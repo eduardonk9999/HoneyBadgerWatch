@@ -15,10 +15,19 @@ void draw(TFT_eSPI& t, const uint16_t* px, int w, int h, int x, int y, int scale
     }
 }
 
-void drawMascot(TFT_eSPI& t, int x, int y, int scale, bool mal, uint32_t now) {
-    const uint16_t* f;
-    if (mal) f = ((now / 250u) % 2u) ? MAL2 : MAL1;       // an angry twitch
-    else     f = ((now % 3000u) < 150u) ? BLINK : IDLE;   // blink ~150ms every 3s
+void drawMascot(TFT_eSPI& t, int x, int y, int scale, uint8_t mode, uint32_t now) {
+    const uint16_t* f = IDLE;
+    if (mode == MAL_MODE) {
+        f = ((now / 250u) % 2u) ? MAL2 : MAL1;            // a two-frame angry twitch
+    } else if (mode == WAVE_MODE) {
+        switch ((now / 180u) % 4u) {                      // arm up, down, hello
+            case 1:  f = WAVE2; break;
+            case 3:  f = WAVE0; break;
+            default: f = IDLE;  break;
+        }
+    } else {
+        f = ((now % 3000u) < 150u) ? BLINK : IDLE;        // blink ~150ms every 3s
+    }
     draw(t, f, IDLE_W, IDLE_H, x, y, scale);              // all frames are 64x64
 }
 void drawRetrato(TFT_eSPI& t, int x, int y, int scale) { draw(t, RETRATO, RETRATO_W, RETRATO_H, x, y, scale); }

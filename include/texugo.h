@@ -18,10 +18,13 @@ namespace Texugo {
 // drawBody() draws through.
 void draw(TFT_eSPI& t, const uint16_t* px, int w, int h, int x, int y, int scale);
 
-// The animated mascot: idle (with an occasional blink) or "mal" mode (angry,
-// on a detection). (x, y) is the top-left; each 64x64 frame is drawn at
-// `scale`. `now` drives the animation; `mal` picks the mode.
-void drawMascot(TFT_eSPI& t, int x, int y, int scale, bool mal, uint32_t now);
+// The animated mascot. (x, y) is the top-left; each 64x64 frame is drawn at
+// `scale`. `now` drives the animation; `mode` picks what he is doing:
+//   IDLE_MODE -- resting, with a blink every few seconds
+//   WAVE_MODE -- waving hello (boot, and the WAVE mood)
+//   MAL_MODE  -- angry: yellow slit eyes, fangs, raised fist (a detection)
+enum Mode : uint8_t { IDLE_MODE = 0, WAVE_MODE = 1, MAL_MODE = 2 };
+void drawMascot(TFT_eSPI& t, int x, int y, int scale, uint8_t mode, uint32_t now);
 void drawRetrato(TFT_eSPI& t, int x, int y, int scale);  // big head -- the icon
 void drawCorpo(TFT_eSPI& t, int x, int y, int scale);    // standing, front
 

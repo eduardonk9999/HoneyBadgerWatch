@@ -740,9 +740,10 @@ int main(int argc, char** argv) {
             // Step-1 preview of the mascot swap: the Texugo sprites blitted
             // through the firmware's own pixel path, on the matrix backdrop.
             frame.fillRect(0, 0, W, H, Theme::BG);
-            Texugo::drawMascot(frame, (W - 64 * 3) / 2, (H - 64 * 3) / 2 + 10, 3, false, t);  // idle (blinks)
+            Texugo::drawMascot(frame, (W - 64 * 3) / 2, (H - 64 * 3) / 2 + 10, 3, Texugo::IDLE_MODE, t);
             Texugo::drawRetrato(frame, 6, 6, 1);
-            Texugo::drawMascot(frame, W - 64 * 2 - 6, H - 64 * 2 - 6, 2, true, 0);             // mal (MAL1)
+            Texugo::drawMascot(frame, W - 64 * 2 - 6, H - 64 * 2 - 6, 2, Texugo::MAL_MODE, 0);   // mal
+            Texugo::drawMascot(frame, 6, H - 64 * 2 - 6, 2, Texugo::WAVE_MODE, 300);             // wave (arm up)
             frame.setTextFont(1); frame.setTextSize(2); frame.setTextColor(Theme::GREEN);
             frame.setCursor((W - 72) / 2, 8); frame.print("TEXUGO");
         }

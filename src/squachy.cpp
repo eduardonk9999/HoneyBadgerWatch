@@ -6231,9 +6231,11 @@ static void drawBody(TFT_eSPI& t, int cx, int hy, int headTopY, uint32_t now, Mo
         // Centre on cx, top at the head line; ~64*bs tall stands in for
         // Squachy's ~62*scale body, so the bubble (above headTopY) and the
         // hit-test (set from cx/headTopY/scale in tick) still land on him.
-        // SHOCKED -- a detection, or a dodge -- flips him to his "mal" mode.
-        const bool mal = (m == Mood::SHOCKED);
-        Texugo::drawMascot(t, cx - 32 * bs, headTopY, bs, mal, now);
+        // SHOCKED -- a detection, or a dodge -- bares his fangs; WAVE waves.
+        uint8_t mode = Texugo::IDLE_MODE;
+        if (m == Mood::SHOCKED)   mode = Texugo::MAL_MODE;
+        else if (m == Mood::WAVE) mode = Texugo::WAVE_MODE;
+        Texugo::drawMascot(t, cx - 32 * bs, headTopY, bs, mode, now);
         return;
     }
     auto S = [scale](int v) { return (int)(v * scale); };
