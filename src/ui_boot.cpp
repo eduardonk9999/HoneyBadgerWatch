@@ -2,6 +2,7 @@
 #include "ui_boot.h"
 #include "theme.h"
 #include "squachy.h"
+#include "texugo.h"
 #include "settings.h"
 
 // Stamped in by extra_script.py from `git describe` at build time --
@@ -63,7 +64,6 @@ void uiBootTick(TFT_eSPI& t, uint32_t now) {
 
     int w = t.width();
     int h = t.height();
-    int yHoriz = (h * 5) / 8;
 
     // The same composed scene the SYNTHWAVE background uses -- sky,
     // sun, ridgeline, reflective water and rungs -- rather than the
@@ -76,12 +76,13 @@ void uiBootTick(TFT_eSPI& t, uint32_t now) {
     // for a screen that is only up for 3s). Text below is drawn with a
     // transparent background so the scene shows through around every
     // glyph instead of sitting in solid boxes.
-    Theme::drawSynthwave(t, now, 0, h, 5.0f / 8.0f);   // same waterline this screen always had
-    Theme::drawSeagulls(t, now, 0, yHoriz);
+    // Matrix backdrop: black, and the M4TR1X palette makes the rest green.
+    // (Was the synthwave sunset -- gone with the rest of the vaporwave look.)
+    t.fillRect(0, 0, w, h, Theme::BG);
 
     // Big title, Bangers comic-impact font — landscape-only screen
     // (boot always starts at rotation 1) so the width is never tight.
-    const char* title = "SQUACHWATCH";
+    const char* title = "HONEYBADGER";
     int tw = Theme::bangersTextWidth(title, Theme::BangersSize::LG);
     int tx = (w - tw) / 2;
     // 3px black outline. The title sits over a bright sunset now, and
@@ -95,7 +96,7 @@ void uiBootTick(TFT_eSPI& t, uint32_t now) {
             Theme::drawBangersText(t, tx + dx, 8 + dy, title, Theme::BLACK, Theme::BangersSize::LG);
         }
     }
-    Theme::drawBangersText(t, tx, 8, title, Theme::VAPOR_PINK, Theme::BangersSize::LG);
+    Theme::drawBangersText(t, tx, 8, title, Theme::GREEN, Theme::BangersSize::LG);
 
     // gradient line — moved up right under the title (the v1.0 line
     // used to sit here; removed so Squachy below gets that room too).
@@ -126,7 +127,7 @@ void uiBootTick(TFT_eSPI& t, uint32_t now) {
     // rectangle. Anything built on it would look correct in one and
     // wrong on the other, and the emulator is where this gets checked.
     t.setTextSize(2);
-    const char* sub = "TALKING SASQUACH";
+    const char* sub = "HONEY BADGER DON'T CARE";
     const int sw = t.textWidth(sub);
     const int sx = (w - sw) / 2;
     const int sy = 54;
@@ -170,80 +171,23 @@ void uiBootTick(TFT_eSPI& t, uint32_t now) {
     // false, so this is safe to call every frame.
     Theme::drawGlitchStatic(t, sx - 4, sy - 2, sx + sw + 4, sy + 18);
 
-    // Squachy himself, standing on the floor just past the horizon,
-    // giving a friendly wave (and a little on-brand attitude) while
-    // everything spins up. Sized as big as the gap between the
-    // subtitle and INITIALIZING... below allows — dropping the v1.0
-    // line and tightening the title stack above is what buys him the
-    // extra room to be this big. Skipped in "boring mode" — the rest
-    // of the boot splash (wordmark, subtitle, INITIALIZING...) is
-    // unaffected, this only cuts the mascot cameo.
+    // One line of attitude in green, then the Texugo himself, standing
+    // between it and INITIALIZING. (Was the waving Squachy on the sunset.)
+    t.setTextSize(1);
+    t.setTextColor(Theme::GREEN);
+    {
+        const char* line = BOOT_LINES[s_bootLineIdx];
+        const int lw = t.textWidth(line);
+        t.setCursor((w - lw) / 2, sy + 22);
+        t.print(line);
+    }
     if (!Settings::boringMode()) {
-        // 2.0, up from 1.6, standing on h-19 rather than yHoriz+50.
-        //
-        // Measured off a render: the subtitle's ink ends at row 67 and
-        // INITIALIZING starts at 224, so there are about 150 usable rows and
-        // he was only occupying 94 of them. The rest was air above his head.
-        //
-        // Both numbers had to move together. drawWaving puts his speech
-        // bubble a fixed 34px above the head anchor, and the anchor is
-        // baseY - 58*scale, so growing him alone drives the bubble up into
-        // the subtitle -- at 1.6 it already sat only six rows clear. Lowering
-        // where he stands buys that back. His feet barely move either way,
-        // since they land at baseY - 5*scale.
-        //
-        // 2.06 is the hard ceiling with the bubble above him: 150 rows has to
-        // hold a 14px bubble, his 60 base units, and air at each end. 2.0 hits
-        // it exactly and leaves 2px top and bottom, which is a rounding error
-        // away from touching. 1.95 gives 4px at both ends instead.
-        // 1.95 was fitted by hand to a 240-tall panel, where the band between
-        // the subtitle and INITIALIZING is about 150 rows and the bubble above
-        // his head was what capped it. A 320-tall panel leaves 80 rows more and
-        // he sat in the middle of them, small, with air all round -- the same
-        // complaint the main screen's geometry solved years ago by sizing him
-        // from the band he is handed rather than from a constant.
-        //
-        // So on a wide panel he is sized from the band. The limit is unchanged:
-        // his head anchor is baseY - 58*scale and the bubble sits above that,
-        // so the scale that just clears the subtitle is (band / 58). Narrow
-        // panels keep the measured 1.95 exactly -- this is the one screen
-        // where the constant was chosen against a render, and it still holds
-        // there.
-        float bootScale = 1.95f;
-        int   gap = 34;                                   // drawWaving's own: one 14-row line
-        // On the big panels his line is set at the 2.8"'s size rather than
-        // double: one short line instead of two or three big ones, so the
-        // room goes to him (asked for on the 3.5", 2026-10-12).
-        Squachy::setBubbleSmall(true);
-        if (Theme::large()) {
-            // The big panels draw his bubble at double size, and a line like
-            // "Surveillance state? Not on my watch." wraps to two or three of
-            // those -- 40 to 60 rows, in a gap sized for one 14-row line, so
-            // the bubble came down over his face (the 3.5", 2026-10-12). The
-            // gap is the bubble he is actually about to say, measured, and
-            // he is sized into whatever band that leaves.
-            // His head anchor is baseY - 58 units, but his hair rises about
-            // ten more above it, so he is 68 units tall for this, and the
-            // bubble sits that hair's height higher again.
-            const int bh   = Squachy::bubbleHeight(t, BOOT_LINES[s_bootLineIdx]);
-            const int band = (h - 21) - (bh + 8) - (sy + 16);   // feet, bubble, subtitle
-            bootScale = (float)(band - 6) / 68.0f;
-            // The cap is the width, not a constant: about 70 units across with
-            // his wave, so a tall portrait screen grows him into its sky
-            // instead of leaving it empty above a small figure.
-            const float widest = (float)(w - 16) / 70.0f;
-            if (bootScale < 1.4f) bootScale = 1.4f;
-            if (bootScale > widest) bootScale = widest;
-            gap = bh + 8 + (int)(10.0f * bootScale);
-        } else if (w >= 400) {
-            const int band = (h - 21) - 34 - (sy + 16);   // feet, bubble, subtitle
-            bootScale = (float)(band - 10) / 58.0f;       // 10 rows of air at the top
-            if (bootScale < 1.95f) bootScale = 1.95f;
-            if (bootScale > 3.2f)  bootScale = 3.2f;
-        }
-        Squachy::drawWaving(t, w / 2, h - 21, now, bootScale, BOOT_LINES[s_bootLineIdx],
-                            false, 0, true, gap);
-        Squachy::setBubbleSmall(false);
+        const int bandTop = sy + 38, bandBot = h - 18;
+        int scale = (bandBot - bandTop) / 64;
+        if (scale < 1) scale = 1;
+        if (scale > 3) scale = 3;
+        const int sz = 64 * scale;
+        Texugo::drawFofo(t, (w - sz) / 2, bandTop + (bandBot - bandTop - sz) / 2, scale);
     }
 
     // INITIALIZING...  vX.Y.Z -- version tacked onto this line rather
