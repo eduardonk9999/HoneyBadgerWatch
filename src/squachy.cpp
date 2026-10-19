@@ -4,6 +4,7 @@
 #include "theme.h"
 #include "signatures.h"
 #include "settings.h"
+#include "texugo.h"
 
 // ---- tempo ----
 // Squachy's behaviour is scheduled in milliseconds: how long a mood lasts,
@@ -6215,8 +6216,24 @@ static void ankleCuff(TFT_eSPI& t, float scale, bool own) {
     }
 }
 
+// HoneyBadgerWatch: the mascot is the Texugo now, blitted as a sprite in place
+// of the procedural Squachy body. Mutable (not constexpr) so the procedural
+// code below stays reachable -- kept for history and a possible toggle, not
+// dead-stripped. Pose/emote mapping and the visitor crown are later sub-steps;
+// for now every body is the idle Texugo (drawFofo).
+static bool s_texugoMascot = true;
+
 static void drawBody(TFT_eSPI& t, int cx, int hy, int headTopY, uint32_t now, Mood m, float scale,
                      bool forceTalking = false, bool ownsBubble = true) {
+    if (s_texugoMascot) {
+        int bs = (int)(scale + 0.5f);
+        if (bs < 1) bs = 1;
+        // Centre on cx, top at the head line; ~64*bs tall stands in for
+        // Squachy's ~62*scale body, so the bubble (above headTopY) and the
+        // hit-test (set from cx/headTopY/scale in tick) still land on him.
+        Texugo::drawFofo(t, cx - 32 * bs, headTopY, bs);
+        return;
+    }
     auto S = [scale](int v) { return (int)(v * scale); };
     int cx2 = cx;
 
