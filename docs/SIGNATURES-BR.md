@@ -29,8 +29,9 @@
 | Positivo | CAMERA | LOW | 3 | Consumer BR; maioria não é câmera → LOW |
 | Multilaser | CAMERA | LOW | 1 | Consumer BR → LOW |
 
-\* `ACCESS` = tipo novo proposto (controle de acesso / reconhecimento facial).
-Se não quiser novo tipo, Control iD/Digicon podem entrar como `CAMERA` MED.
+\* `ACCESS` = ✅ **implementado** (DetectionType::ACCESS, cor própria, ícone
+reaproveita o da câmera por ora). Controle de acesso / reconhecimento facial;
+Control iD e Digicon entram aqui em vez de `CAMERA`.
 
 ## Excluídas (armadilhas verificadas — NÃO usar)
 

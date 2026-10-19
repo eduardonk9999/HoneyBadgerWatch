@@ -42,6 +42,7 @@ const char* shortName(DetectionType t) {
         case DetectionType::DRONE:       return "DRONE";
         case DetectionType::ALPR:        return "ALPR";
         case DetectionType::CAMERA:      return "CAM";
+        case DetectionType::ACCESS:      return "ACC";
         case DetectionType::SAMSUNG_TAG: return "STAG";
         case DetectionType::GOOGLE_TAG:  return "GTAG";
         case DetectionType::TILE:        return "TILE";

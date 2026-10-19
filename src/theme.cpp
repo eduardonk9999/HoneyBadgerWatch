@@ -139,6 +139,10 @@ uint16_t colorFor(DetectionType t) {
         case DetectionType::CAMERA:
         case DetectionType::RING:
             return CYAN;
+        // Facial / access control (Control iD, Digicon): surveillance, but a
+        // distinct colour from the plain cameras -- it reads YOU, at a door.
+        case DetectionType::ACCESS:
+            return VAPOR_BLUE;
         case DetectionType::DEAUTH:
         case DetectionType::EVILTWIN:
         // Filed with the two attack detections rather than with the
@@ -1049,6 +1053,7 @@ void drawTypeIcon(TFT_eSPI& t, DetectionType type, int cx, int cy, int s) {
         t.drawRect(cx-s, cy+s/6, s*2, s*3/4, ICO_INK);
         for(int i=0;i<5;i++) t.fillRect(cx-s+5+i*(s*2-10)/5, cy+s/3, 3, s*2/5, ICO_INK);
         break;
+    case DetectionType::ACCESS:   // reuses the camera icon for now
     case DetectionType::CAMERA: {
         const int py=cy-s*2/3;
         t.fillCircle(cx,cy,s,SHELL);

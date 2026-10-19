@@ -33,7 +33,8 @@ enum class DetectionType : uint8_t {
     // chip, and sixteen Espressif prefixes already sit under FLOCK. HACKER
     // takes exact signatures only, which is what keeps it worth alerting on.
     HACKER  = 17,
-    COUNT   = 18
+    ACCESS  = 18,  // Control iD / Digicon -- facial & access control (BR)
+    COUNT   = 19
 };
 
 inline const char* detectionTypeName(DetectionType t) {
@@ -47,6 +48,7 @@ inline const char* detectionTypeName(DetectionType t) {
         case DetectionType::DRONE:       return "DRONE";
         case DetectionType::ALPR:        return "ALPR";
         case DetectionType::CAMERA:      return "CAMERA";
+        case DetectionType::ACCESS:      return "ACCESS";
         case DetectionType::SAMSUNG_TAG: return "SAMSUNG_TAG";
         case DetectionType::GOOGLE_TAG:  return "GOOGLE_TAG";
         case DetectionType::TILE:        return "TILE";

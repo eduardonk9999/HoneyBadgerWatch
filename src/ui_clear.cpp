@@ -2862,6 +2862,7 @@ static const char* counterLabel(DetectionType t) {
         case DetectionType::RAVEN:       return "RAV";
         case DetectionType::ALPR:        return "ALPR";
         case DetectionType::CAMERA:      return "CAM";
+        case DetectionType::ACCESS:      return "ACC";
         case DetectionType::SAMSUNG_TAG: return "STAG";
         case DetectionType::GOOGLE_TAG:  return "GTAG";
         case DetectionType::TILE:        return "TILE";

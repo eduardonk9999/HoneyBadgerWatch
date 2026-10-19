@@ -237,8 +237,8 @@ const OuiEntry kOuiTable[] = {
     // and Digicon (facial / access control) ride under CAMERA until a
     // dedicated ACCESS type exists; their labels say what they are.
     {{0xF8, 0xD4, 0x62}, "ALPR-Puma", DetectionType::ALPR, Confidence::HIGH_CONF},
-    {{0xFC, 0x52, 0xCE}, "ControlID", DetectionType::CAMERA, Confidence::HIGH_CONF},
-    {{0x4C, 0x8B, 0x55}, "Digicon", DetectionType::CAMERA, Confidence::MED_CONF},
+    {{0xFC, 0x52, 0xCE}, "ControlID", DetectionType::ACCESS, Confidence::HIGH_CONF},
+    {{0x4C, 0x8B, 0x55}, "Digicon", DetectionType::ACCESS, Confidence::MED_CONF},
     {{0x58, 0x10, 0x8C}, "Intelbras", DetectionType::CAMERA, Confidence::MED_CONF},
     {{0x98, 0x2A, 0x0A}, "Intelbras", DetectionType::CAMERA, Confidence::MED_CONF},
     {{0x80, 0x8F, 0xE8}, "Intelbras", DetectionType::CAMERA, Confidence::MED_CONF},
@@ -815,6 +815,9 @@ Confidence confidenceFor(DetectionType t) {
     // to Tile, Inc. RING is High: real MA-L registry OUI matches, same
     // evidentiary basis as CAMERA.
     switch (t) {
+        // Control iD is High, Digicon Med; the conservative grade is Med.
+        case DetectionType::ACCESS:
+            return Confidence::MED_CONF;
         case DetectionType::FLOCK:
         case DetectionType::AXON:
         case DetectionType::SKIMMER:
