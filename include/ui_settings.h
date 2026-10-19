@@ -23,6 +23,7 @@ enum class SettingsRow : uint8_t {
     ROTATION_LOCK,
     BORING_MODE,
     CONFIDENCE,
+    LANGUAGE,       // the UI language: PT-BR / EN (technical terms stay English)
     AUTO_QUIET,     // "AUTO SNOOZE": how often one device may interrupt
     DETECTION_FILTER,
     IGNORED_DEVICES,

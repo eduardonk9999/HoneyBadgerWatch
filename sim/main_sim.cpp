@@ -604,6 +604,8 @@ int main(int argc, char** argv) {
     });
     // SQUACHSIM_PRIVACY=1: PRIVACY MODE on, for shots of the masked screens.
     if (getenv("SQUACHSIM_PRIVACY") && !Settings::privacyMode()) Settings::togglePrivacyMode();
+    // SQUACHSIM_LANG=pt|en: the UI language, for i18n shots.
+    if (const char* l = getenv("SQUACHSIM_LANG")) Settings::setLanguage((l[0] == 'p' || l[0] == 'P') ? 1 : 0);
     // SQUACHSIM_CLASSIC=1: DETECTIONS set to CLASSIC (NEARBY and the full counter rows).
     if (getenv("SQUACHSIM_CLASSIC") && Settings::detXp()) Settings::toggleDetXp();
     // SQUACHSIM_FONTS=mtbs: the FONTS page's four sliders, one digit each for

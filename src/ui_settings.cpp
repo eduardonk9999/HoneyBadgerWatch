@@ -74,7 +74,7 @@ static const SettingsRow ALL_ROWS[] = {
     // to ten rows, so the main list carries one row that opens it.
     SettingsRow::WATCH_SETTINGS,
 #endif
-    SettingsRow::BORING_MODE, SettingsRow::CONFIDENCE, SettingsRow::AUTO_QUIET,
+    SettingsRow::BORING_MODE, SettingsRow::CONFIDENCE, SettingsRow::LANGUAGE, SettingsRow::AUTO_QUIET,
 #if defined(CROWPANEL7)
     // Beside ALERT FILTER and AUTO SNOOZE because it is about alerts: one
     // switch, not a page of knobs like the light. Compiled only for the
@@ -326,6 +326,7 @@ static RowGroupId groupFor(SettingsRow r) {
             return RowGroupId::FONTS;
         case SettingsRow::BORING_MODE:
         case SettingsRow::CONFIDENCE:
+        case SettingsRow::LANGUAGE:
         case SettingsRow::AUTO_QUIET:
 #if defined(CROWPANEL7)
         case SettingsRow::BUZZER:
@@ -1211,6 +1212,9 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             break;
         case SettingsRow::CONFIDENCE:
             label = "ALERT FILTER"; value = Settings::minConfidenceLabel();
+            break;
+        case SettingsRow::LANGUAGE:
+            label = Lang::tr(Lang::ROW_LANGUAGE); value = Settings::languageName();
             break;
         case SettingsRow::AUTO_QUIET:
             label = "AUTO SNOOZE"; value = Settings::autoQuietLabel();

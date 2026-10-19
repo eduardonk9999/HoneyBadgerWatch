@@ -7780,6 +7780,7 @@ void loop() {
                             break;
                         }
                         case SettingsRow::CONFIDENCE: Settings::cycleMinConfidence(); break;
+                        case SettingsRow::LANGUAGE:   Settings::cycleLanguage(); break;
                         case SettingsRow::AUTO_QUIET:  Settings::cycleAutoQuiet(); break;
 #if defined(CROWPANEL7)
                         case SettingsRow::BUZZER:
