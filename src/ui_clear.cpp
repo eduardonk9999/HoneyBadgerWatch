@@ -1,5 +1,6 @@
 // SquachWatch-CYD — clear (idle) screen implementation
 #include "ui_clear.h"
+#include "lang.h"
 #if SQUACH_LORA && defined(TDECK_PLUS)
 #include "ui_lorachat.h"   // the LORA n NEW pill: the tiles drop under it while it is up
 #endif
@@ -1971,7 +1972,7 @@ static int16_t s_wpX = 0, s_wpY = 0, s_wpW = 0, s_wpH = 0;
 static void drawWatchPill(TFT_eSPI& t, int screenW, bool watching, bool hunting, int spanR = -1) {
     // HUNT wins the label when both are set: it is the active, look-at-me mode.
     // The two are independent slots (see DetectionEngine), so both can be on.
-    const char* txt = hunting ? "HUNT" : "WATCH";
+    const char* txt = hunting ? Lang::tr(Lang::BTN_HUNT) : Lang::tr(Lang::BTN_WATCH);
     const uint16_t accent = hunting ? Theme::AMBER : Theme::CYAN;
     t.setTextSize(1);
     // 16 in a 20px bar: two rows of clearance top and bottom.

@@ -31,6 +31,21 @@ static const char* const T[STR_COUNT][COUNT] = {
     /* STR_AFTER10    */ { "AFTER 10",     "APOS 10"       },
     /* STR_HIGH_ONLY  */ { "HIGH ONLY",    "SO ALTA"       },
     /* BTN_UP         */ { "[ UP ]",       "[ ACIMA ]"     },
+    /* BTN_IGNORE     */ { "IGNORE",       "IGNORAR"       },
+    /* BTN_MUTED      */ { "MUTED",        "MUDO"          },
+    /* BTN_SNOOZE     */ { "SNOOZE",       "SONECA"        },
+    /* BTN_HUNT       */ { "HUNT",         "CACAR"         },
+    /* BTN_WATCH      */ { "WATCH",        "VIGIAR"        },
+    /* STR_MORE       */ { "MORE",         "MAIS"          },
+    /* BTN_UNWATCH    */ { "UNWATCH",      "DESVIGIAR"     },
+    /* BTN_STOP_HUNT  */ { "STOP HUNT",    "PARAR"         },
+    /* BTN_UNIGNORE   */ { "UN-IGNORE",    "REATIVAR"      },
+    /* BTN_MORE_INFO  */ { "MORE INFO",    "MAIS INFO"     },
+    /* BTN_CANCEL     */ { "CANCEL",       "CANCELAR"      },
+    /* STR_LOG_EMPTY  */ { "LOG EMPTY",    "LOG VAZIO"     },
+    /* TAG_IGNORED    */ { "IGNORED",      "IGNORADO"      },
+    /* STR_MESSAGE    */ { "MESSAGE",      "MENSAGEM"      },
+    /* STR_BACK       */ { "BACK",         "VOLTAR"        },
 };
 
 void set(uint8_t l)       { s_lang = (l < COUNT) ? l : EN; }

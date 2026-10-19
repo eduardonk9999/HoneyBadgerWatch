@@ -1,5 +1,6 @@
 // SquachWatch-CYD — log screen implementation
 #include "ui_log.h"
+#include "lang.h"
 #include "ui_scroll.h"
 #include "clock.h"
 #include "theme.h"
@@ -245,11 +246,11 @@ static void drawConfirmPanel(TFT_eSPI& t, int w, int h, const char* label, bool 
         t.setTextColor(Theme::RED, Theme::BG);
         t.setCursor(px + (pw - t.textWidth(nm)) / 2, py + 6);
         t.print(nm);
-        Theme::drawButton(t, wX, wY, wW, wH, watched ? "UNWATCH" : "WATCH", watched, 1);
-        Theme::drawButton(t, huX, huY, huW, huH, hunted ? "STOP HUNT" : "HUNT", hunted, 1);
-        Theme::drawButton(t, igX, igY, igW, igH, ignored ? "UN-IGNORE" : "IGNORE", ignored, 1);
-        Theme::drawButton(t, infX, infY, infW, infH, "MORE INFO", false, 1);
-        Theme::drawButton(t, cnX, cnY, cnW, cnH, "CANCEL", false, 1);
+        Theme::drawButton(t, wX, wY, wW, wH, watched ? Lang::tr(Lang::BTN_UNWATCH) : Lang::tr(Lang::BTN_WATCH), watched, 1);
+        Theme::drawButton(t, huX, huY, huW, huH, hunted ? Lang::tr(Lang::BTN_STOP_HUNT) : Lang::tr(Lang::BTN_HUNT), hunted, 1);
+        Theme::drawButton(t, igX, igY, igW, igH, ignored ? Lang::tr(Lang::BTN_UNIGNORE) : Lang::tr(Lang::BTN_IGNORE), ignored, 1);
+        Theme::drawButton(t, infX, infY, infW, infH, Lang::tr(Lang::BTN_MORE_INFO), false, 1);
+        Theme::drawButton(t, cnX, cnY, cnW, cnH, Lang::tr(Lang::BTN_CANCEL), false, 1);
         return;
     }
 
@@ -281,14 +282,14 @@ static void drawConfirmPanel(TFT_eSPI& t, int w, int h, const char* label, bool 
 
     // See ui_rawscan.cpp's copy of this panel: toggling, so the label names
     // the next tap rather than the thing already done.
-    Theme::drawButton(t, wX, wY, wW, wH, watched ? "UNWATCH" : "WATCH", watched);
+    Theme::drawButton(t, wX, wY, wW, wH, watched ? Lang::tr(Lang::BTN_UNWATCH) : Lang::tr(Lang::BTN_WATCH), watched);
     // Toggles like WATCH beside it -- see that button's comment.
-    Theme::drawButton(t, huX, huY, huW, huH, hunted ? "STOP HUNT" : "HUNT", hunted);
+    Theme::drawButton(t, huX, huY, huW, huH, hunted ? Lang::tr(Lang::BTN_STOP_HUNT) : Lang::tr(Lang::BTN_HUNT), hunted);
     // Toggles too (issue #18): the only way to tell a device was ignored used
     // to be tapping IGNORE again and reading which toast came back.
-    Theme::drawButton(t, igX, igY, igW, igH, ignored ? "UN-IGNORE" : "IGNORE", ignored);
-    Theme::drawButton(t, infX, infY, infW, infH, "MORE INFO", false);
-    Theme::drawButton(t, cnX, cnY, cnW, cnH, "CANCEL", false);
+    Theme::drawButton(t, igX, igY, igW, igH, ignored ? Lang::tr(Lang::BTN_UNIGNORE) : Lang::tr(Lang::BTN_IGNORE), ignored);
+    Theme::drawButton(t, infX, infY, infW, infH, Lang::tr(Lang::BTN_MORE_INFO), false);
+    Theme::drawButton(t, cnX, cnY, cnW, cnH, Lang::tr(Lang::BTN_CANCEL), false);
 }
 
 // Row geometry, shared by uiLogTick() (drawing) and uiLogRowAt() (hit
@@ -388,7 +389,7 @@ if (!Theme::stillBackdrop(t)) switch (Settings::background()) {
         uint16_t col = Theme::blend(Theme::GREEN, Theme::CYAN, (uint16_t)(pulse * 200.0f));
         t.setTextSize(3);
         t.setTextColor(col, Theme::BG);
-        const char* msg = "LOG EMPTY";
+        const char* msg = Lang::tr(Lang::STR_LOG_EMPTY);
         int mw = t.textWidth(msg);
         t.setCursor((w - mw) / 2, bodyTop + bodyH / 3);
         t.print(msg);
@@ -532,7 +533,7 @@ if (!Theme::stillBackdrop(t)) switch (Settings::background()) {
         // screen is narrow. Grey, because an ignored device is one that has
         // been told to be quiet.
         if (IgnoreList::contains(d->mac)) {
-            const char* tag = "IGNORED";
+            const char* tag = Lang::tr(Lang::TAG_IGNORED);
             if (w - 14 - t.textWidth(tag) - 4 < hitsEnd + 6) tag = "IGN";
             const int tw2 = t.textWidth(tag) + 4;
             const int tx  = w - 14 - tw2;

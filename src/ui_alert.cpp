@@ -1,6 +1,7 @@
 // SquachWatch-CYD — ALERT screen implementation
 #include "ui_alert.h"
 #include "theme.h"
+#include "lang.h"
 #include "privacy.h"
 #include "signatures.h"
 #include "detection.h"
@@ -675,7 +676,7 @@ void uiAlertTick(TFT_eSPI& t, uint32_t now, const DetectionEngine& eng,
         // In bold (asked for 2026-10-10): it is the one button here that
         // changes what the device does from now on.
         Theme::drawWin95Button(t, bx, by, bw, bh,
-                               already ? "MUTED" : "IGNORE", already, true);
+                               already ? Lang::tr(Lang::BTN_MUTED) : Lang::tr(Lang::BTN_IGNORE), already, true);
     }
 
     {
@@ -694,9 +695,9 @@ void uiAlertTick(TFT_eSPI& t, uint32_t now, const DetectionEngine& eng,
             t.print("INFO");
         } else {
         int ty = by + (bh - (lineH * 2 + lineGap)) / 2;
-        int mw = t.textWidth("MORE");
+        int mw = t.textWidth(Lang::tr(Lang::STR_MORE));
         t.setCursor(bx + (bw - mw) / 2, ty);
-        t.print("MORE");
+        t.print(Lang::tr(Lang::STR_MORE));
         t.setCursor(bx + (bw - iw) / 2, ty + lineH + lineGap);
         t.print("INFO");
         }
@@ -718,15 +719,15 @@ void uiAlertTick(TFT_eSPI& t, uint32_t now, const DetectionEngine& eng,
         t.setTextSize(2);
         t.setTextColor(Theme::AMBER, Theme::BG);
         t.setTextWrap(false);
-        int hw = t.textWidth("HUNT");
+        int hw = t.textWidth(Lang::tr(Lang::BTN_HUNT));
         t.setCursor(bx + (bw - hw) / 2, by + (bh - t.fontHeight()) / 2);
-        t.print("HUNT");
+        t.print(Lang::tr(Lang::BTN_HUNT));
     }
     // SNOOZE between the two: this device, quiet until the board restarts.
     {
         int bx, by, bw, bh;
         snoozeBtnRect(w, h, bx, by, bw, bh);
-        Theme::drawButton(t, bx, by, bw, bh, "SNOOZE", false);
+        Theme::drawButton(t, bx, by, bw, bh, Lang::tr(Lang::BTN_SNOOZE), false);
     }
 
     // TV-static snow over the whole screen during the same random burst

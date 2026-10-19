@@ -1,5 +1,6 @@
 // SquachWatch-CYD — desk mode. See ui_desk.h.
 #include "ui_desk.h"
+#include "lang.h"
 #include "clock.h"
 #include "theme.h"
 #include "privacy.h"
@@ -258,7 +259,7 @@ static void drawMessageBox(TFT_eSPI& t, int restTop, float p, uint32_t now) {
     t.drawLine(bx + 5, by + 5, bx + 9, by + 9, XP_BLUE);
     t.drawLine(bx + 13, by + 5, bx + 9, by + 9, XP_BLUE);
     t.setCursor(bx + 18, by + 4);
-    t.print("MESSAGE");
+    t.print(Lang::tr(Lang::STR_MESSAGE));
     t.fillRoundRect(bx + bw - 15, by + 2, 12, 11, 2, XP_CLOSE);
     t.setTextColor(Theme::WHITE, XP_CLOSE);
     t.setCursor(bx + bw - 12, by + 4);
@@ -729,7 +730,7 @@ void uiDeskTick(TFT_eSPI& t, uint32_t now, const DetectionEngine& eng, bool adva
     char lbl[16];
     timerLabel(lbl, sizeof lbl, now);
     Theme::drawButton(t, tx, ty, tw, tth, lbl, s_timer != Timer::IDLE);
-    Theme::drawButton(t, bx, ty, bw, tth, "BACK", false);
+    Theme::drawButton(t, bx, ty, bw, tth, Lang::tr(Lang::STR_BACK), false);
     {
         int gx, gy, gs;
         gearRect(w, h, gx, gy, gs);

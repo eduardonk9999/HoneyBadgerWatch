@@ -45,6 +45,21 @@ enum StringId : uint16_t {
     STR_AFTER10,
     STR_HIGH_ONLY,
     BTN_UP,
+    BTN_IGNORE,
+    BTN_MUTED,
+    BTN_SNOOZE,
+    BTN_HUNT,
+    BTN_WATCH,
+    STR_MORE,
+    BTN_UNWATCH,
+    BTN_STOP_HUNT,
+    BTN_UNIGNORE,
+    BTN_MORE_INFO,
+    BTN_CANCEL,
+    STR_LOG_EMPTY,
+    TAG_IGNORED,
+    STR_MESSAGE,
+    STR_BACK,
     STR_COUNT
 };
 
