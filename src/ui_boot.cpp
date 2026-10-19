@@ -187,7 +187,7 @@ void uiBootTick(TFT_eSPI& t, uint32_t now) {
         if (scale < 1) scale = 1;
         if (scale > 3) scale = 3;
         const int sz = 64 * scale;
-        Texugo::drawFofo(t, (w - sz) / 2, bandTop + (bandBot - bandTop - sz) / 2, scale);
+        Texugo::drawMascot(t, (w - sz) / 2, bandTop + (bandBot - bandTop - sz) / 2, scale, false, now);
     }
 
     // INITIALIZING...  vX.Y.Z -- version tacked onto this line rather

@@ -18,9 +18,11 @@ namespace Texugo {
 // drawBody() draws through.
 void draw(TFT_eSPI& t, const uint16_t* px, int w, int h, int x, int y, int scale);
 
-// The named poses. (x, y) is the top-left; the sprites are 64x64.
-void drawFofo(TFT_eSPI& t, int x, int y, int scale);     // front, waving -- the main idle pose
-void drawRetrato(TFT_eSPI& t, int x, int y, int scale);  // big head -- the icon / boot
+// The animated mascot: idle (with an occasional blink) or "mal" mode (angry,
+// on a detection). (x, y) is the top-left; each 64x64 frame is drawn at
+// `scale`. `now` drives the animation; `mal` picks the mode.
+void drawMascot(TFT_eSPI& t, int x, int y, int scale, bool mal, uint32_t now);
+void drawRetrato(TFT_eSPI& t, int x, int y, int scale);  // big head -- the icon
 void drawCorpo(TFT_eSPI& t, int x, int y, int scale);    // standing, front
 
 }
