@@ -23,6 +23,14 @@ static const char* const T[STR_COUNT][COUNT] = {
     /* ROW_TYPE_FILTER*/ { "TYPE FILTER",  "FILTRO TIPO"   },
     /* ROW_IGNORED    */ { "IGNORED",      "IGNORADOS"     },
     /* ROW_SOUND      */ { "SOUND",        "SOM"           },
+    /* STR_ON         */ { "ON",           "LIG"           },
+    /* STR_OFF        */ { "OFF",          "DESL"          },
+    /* STR_ALL        */ { "ALL",          "TUDO"          },
+    /* STR_ALERTS     */ { "ALERTS",       "ALERTAS"       },
+    /* STR_AFTER5     */ { "AFTER 5",      "APOS 5"        },
+    /* STR_AFTER10    */ { "AFTER 10",     "APOS 10"       },
+    /* STR_HIGH_ONLY  */ { "HIGH ONLY",    "SO ALTA"       },
+    /* BTN_UP         */ { "[ UP ]",       "[ ACIMA ]"     },
 };
 
 void set(uint8_t l)       { s_lang = (l < COUNT) ? l : EN; }
@@ -33,5 +41,6 @@ const char* trIn(StringId id, uint8_t l) {
     return T[(id < STR_COUNT) ? id : 0][(l < COUNT) ? l : EN];
 }
 const char* tr(StringId id) { return trIn(id, s_lang); }
+const char* onOff(bool on)  { return tr(on ? STR_ON : STR_OFF); }
 
 }

@@ -372,8 +372,11 @@ bool buzzerOn()     { return s_buzzer; }
 void toggleBuzzer() { s_buzzer = !s_buzzer; s_prefs.putBool("buzzer", s_buzzer); }
 uint8_t soundMode() { return s_soundMode; }
 const char* soundModeName() {
-    static const char* const N[] = { "OFF", "ALERTS", "ALL" };
-    return N[s_soundMode < 3 ? s_soundMode : 0];
+    switch (s_soundMode) {
+        case 1:  return Lang::tr(Lang::STR_ALERTS);
+        case 2:  return Lang::tr(Lang::STR_ALL);
+        default: return Lang::tr(Lang::STR_OFF);
+    }
 }
 void cycleSoundMode() { s_soundMode = (uint8_t)((s_soundMode + 1) % 3); s_prefs.putUChar("sndMode", s_soundMode); }
 uint8_t soundVolume() { return s_soundVol; }
@@ -960,9 +963,9 @@ const char* autoQuietLabel() {
     if (autoQuietForced()) return "SAVER 5";
 #endif
     switch (s_autoQuiet) {
-        case 5:  return "AFTER 5";
-        case 10: return "AFTER 10";
-        default: return "OFF";
+        case 5:  return Lang::tr(Lang::STR_AFTER5);
+        case 10: return Lang::tr(Lang::STR_AFTER10);
+        default: return Lang::tr(Lang::STR_OFF);
     }
 }
 
@@ -980,9 +983,9 @@ void cycleMinConfidence() {
 
 const char* minConfidenceLabel() {
     switch (s_minConf) {
-        case Confidence::LOW_CONF:  return "ALL";
+        case Confidence::LOW_CONF:  return Lang::tr(Lang::STR_ALL);
         case Confidence::MED_CONF:  return "MED+";
-        case Confidence::HIGH_CONF: return "HIGH ONLY";
+        case Confidence::HIGH_CONF: return Lang::tr(Lang::STR_HIGH_ONLY);
         default:                    return "?";
     }
 }

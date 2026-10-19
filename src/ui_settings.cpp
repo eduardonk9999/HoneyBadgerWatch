@@ -933,7 +933,7 @@ static void drawPinnedBack(TFT_eSPI& t, int screenW, int screenH) {
         t.print("[ UP ]");
         return;
     }
-    const char* lbl = (s_page == SettingsPage::MAIN) ? "[ BACK ]" : "[ UP ]";
+    const char* lbl = (s_page == SettingsPage::MAIN) ? Lang::tr(Lang::BTN_BACK) : Lang::tr(Lang::BTN_UP);
     t.setCursor(x + (w - t.textWidth(lbl)) / 2, y + (h - t.fontHeight()) / 2);
     t.print(lbl);
 }
@@ -1177,7 +1177,7 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             break;
 #if SQUACH_MESH
         case SettingsRow::DESK_SQUAD:
-            label = "SQUAD ON DESK"; value = Settings::deskSquad() ? "ON" : "OFF";
+            label = "SQUAD ON DESK"; value = Lang::onOff(Settings::deskSquad());
             break;
         case SettingsRow::DESK_CROWD:
             label = "HOW MANY"; value = Settings::deskCrowdLabel();
@@ -1188,7 +1188,7 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             break;
 #endif
         case SettingsRow::BACKGROUND_LOCK:
-            label = "LOCK BACKGROUND"; value = Settings::backgroundLocked() ? "ON" : "OFF";
+            label = "LOCK BACKGROUND"; value = Lang::onOff(Settings::backgroundLocked());
             break;
         case SettingsRow::BRIGHTNESS:
             label = "BRIGHT"; value = stepperValue(r, valBuf, valBufN);
@@ -1199,16 +1199,16 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             break;
 #endif
         case SettingsRow::INVERT:
-            label = "INVERT COLORS"; value = Settings::inverted() ? "ON" : "OFF";
+            label = "INVERT COLORS"; value = Lang::onOff(Settings::inverted());
             break;
         case SettingsRow::RGB_SWAP:
             label = "COLOR ORDER"; value = Settings::rgbSwapped() ? "SWAPPED" : "NORMAL";
             break;
         case SettingsRow::ROTATION_LOCK:
-            label = "ROTATION LOCK"; value = Settings::rotationLocked() ? "ON" : "OFF";
+            label = "ROTATION LOCK"; value = Lang::onOff(Settings::rotationLocked());
             break;
         case SettingsRow::BORING_MODE:
-            label = Lang::tr(Lang::ROW_BORING); value = Settings::boringMode() ? "ON" : "OFF";
+            label = Lang::tr(Lang::ROW_BORING); value = Lang::onOff(Settings::boringMode());
             break;
         case SettingsRow::CONFIDENCE:
             label = Lang::tr(Lang::ROW_ALERT_FILTER); value = Settings::minConfidenceLabel();
@@ -1341,10 +1341,10 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             break;
 #endif
         case SettingsRow::EXT_SCREEN:
-            label = "EXT SCREEN"; value = Settings::extScreen() ? "ON" : "OFF";
+            label = "EXT SCREEN"; value = Lang::onOff(Settings::extScreen());
             break;
         case SettingsRow::PRIVACY:
-            label = "PRIVACY MODE"; value = Settings::privacyMode() ? "ON" : "OFF";
+            label = "PRIVACY MODE"; value = Lang::onOff(Settings::privacyMode());
             break;
         case SettingsRow::CHARGE_MODE:
             label = "CHARGE MODE"; value = "START";
@@ -1359,10 +1359,10 @@ static void rowContent(SettingsRow r, const DetectionEngine& eng, char* valBuf, 
             break;
         }
         case SettingsRow::POWER_SAVER:
-            label = "POWER SAVER"; value = Settings::powerSaver() ? "ON" : "OFF";
+            label = "POWER SAVER"; value = Lang::onOff(Settings::powerSaver());
             break;
         case SettingsRow::STATUS_LIGHT:
-            label = "STATUS LIGHT"; value = Settings::lightOn() ? "ON" : "OFF";
+            label = "STATUS LIGHT"; value = Lang::onOff(Settings::lightOn());
             break;
         case SettingsRow::SECURITY:
             label = "SECURITY"; value = Security::enabled() ? "PIN ON" : "OFF";

@@ -37,6 +37,14 @@ enum StringId : uint16_t {
     ROW_TYPE_FILTER,
     ROW_IGNORED,
     ROW_SOUND,
+    STR_ON,
+    STR_OFF,
+    STR_ALL,
+    STR_ALERTS,
+    STR_AFTER5,
+    STR_AFTER10,
+    STR_HIGH_ONLY,
+    BTN_UP,
     STR_COUNT
 };
 
@@ -45,5 +53,6 @@ uint8_t     current();
 const char* name(uint8_t lang);             // "EN" / "PT-BR"
 const char* trIn(StringId id, uint8_t lang);
 const char* tr(StringId id);                // in the current language
+const char* onOff(bool on);                 // tr(STR_ON) / tr(STR_OFF)
 
 }
