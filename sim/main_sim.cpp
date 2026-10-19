@@ -23,6 +23,7 @@
 #include "theme.h"
 #include "settings.h"
 #include "squachy.h"
+#include "texugo.h"
 #include "pet.h"
 #include "detection.h"
 #include "detection_info.h"
@@ -735,6 +736,16 @@ int main(int argc, char** argv) {
         SimClock::nowMs = t;
         if      (screen == "clear")    { Theme::setRedGlyph(!Squachy::th3Unlocked()); uiClearEmoteTick(t); uiClearTick(frame, t, engine, true, false);
                                          if (headsUp || getenv("SQUACHSIM_POWEROFF")) Theme::drawToast(frame, t); }
+        else if (screen == "texugo") {
+            // Step-1 preview of the mascot swap: the Texugo sprites blitted
+            // through the firmware's own pixel path, on the matrix backdrop.
+            frame.fillRect(0, 0, W, H, Theme::BG);
+            Texugo::drawFofo(frame, (W - 64 * 3) / 2, (H - 64 * 3) / 2 + 10, 3);
+            Texugo::drawRetrato(frame, 6, 6, 1);
+            Texugo::drawCorpo(frame, W - 64 - 6, H - 64 - 6, 1);
+            frame.setTextFont(1); frame.setTextSize(2); frame.setTextColor(Theme::GREEN);
+            frame.setCursor((W - 72) / 2, 8); frame.print("TEXUGO");
+        }
         else if (screen == "log") {
             const bool info = (infoType >= 0);
             const DetectionType it = info ? (DetectionType)infoType : DetectionType::UNKNOWN;
